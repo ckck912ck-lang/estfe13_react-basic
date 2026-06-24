@@ -1,5 +1,8 @@
 //Nav 컴포넌트
-function Nav({ data, onChangeMode }) {
+import { memo } from "react";
+/* memo : 이전 props와 현재 props를 비교해서  변경이 없으면 렌더링을 건너뛴다. */
+
+const Nav = memo(function Nav({ data, onChangeMode }) {
   console.log("Nav render");
   const lists = data.map(d => (
     <li key={d.id}>
@@ -23,6 +26,6 @@ function Nav({ data, onChangeMode }) {
       <ul>{lists}</ul>
     </nav>
   );
-}
+});
 
 export default Nav;
