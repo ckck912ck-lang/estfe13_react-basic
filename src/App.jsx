@@ -75,21 +75,33 @@ function App() {
         title={selected.title}
         desc={selected.desc}
         onSubmit={(_title, _desc) => {
-          let _content = content.map(c =>
-            c.id === id
-              ? {
-                  ...c,
-                  title: _title,
-                  desc: _desc,
-                }
-              : c,
+          setContent(prev =>
+            prev.map(p =>
+              p.id === id
+                ? {
+                    ...p,
+                    title: _title,
+                    desc: _desc,
+                  }
+                : p,
+            ),
           );
-          setContent(_content); //수정된 배열
           setMode("read");
         }}
       />
     );
   }
+
+  /*
+    setTodos(prevTodos => {
+    // ✅ 올바른 방법: 새로운 state로 교체
+      return [...prevTodos, createTodo()];
+    });
+
+    setTodos(prevTodos => 
+      {...prevTodos, title:뉴제목, desc:뉴설명};
+    );
+  */
 
   const handleChangeMode = useCallback(_id => {
     setMode("read");
