@@ -7,7 +7,9 @@ function MyArticle({ title, desc, onChangeMode, onDelete }) {
         <h2>{title}</h2>
         <p>{desc}</p>
       </article>
-      <button
+      {onChangeMode && <button onClick={onChangeMode}>수정</button>}
+      {onDelete && <button onClick={onDelete}>삭제</button>}
+      {/* <button
         onClick={() => {
           onChangeMode();
         }}
@@ -20,7 +22,7 @@ function MyArticle({ title, desc, onChangeMode, onDelete }) {
         }}
       >
         삭제
-      </button>
+      </button> */}
     </section>
   );
 }
