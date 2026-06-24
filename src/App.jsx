@@ -4,6 +4,7 @@ import Nav from "./components/Nav";
 import MyArticle from "./components/MyArticle";
 import Controls from "./components/controls";
 import CreateArticle from "./components/createArticle";
+import UpdateArticle from "./components/UpdateArticle";
 import { useState, useCallback } from "react";
 
 function App() {
@@ -42,7 +43,15 @@ function App() {
       _title = selected.title;
       _desc = selected.desc;
     }
-    _article = <MyArticle title={_title} desc={_desc} />;
+    _article = (
+      <MyArticle
+        title={_title}
+        desc={_desc}
+        onChangeMode={() => {
+          setMode("update");
+        }}
+      />
+    );
   } else if (mode === "create") {
     _article = (
       <CreateArticle
@@ -52,6 +61,30 @@ function App() {
           let _contents = content.concat({ id: newId, title: _title, desc: _desc });
           setContent(_contents);
           setMaxid(newId);
+          setId(newId);
+          setMode("read");
+        }}
+      />
+    );
+  } else if (mode === "update") {
+    const selected = content.find(c => c.id === id);
+    console.log(selected);
+    if (selected) {
+      _title = selected.title;
+      _desc = selected.desc;
+    }
+    _article = (
+      <UpdateArticle
+        title={_title}
+        desc={_desc}
+        onSubmit={(_title, _desc) => {
+          const newId = maxId + 1;
+
+          let _contents = content.concat({ id: newId, title: _title, desc: _desc });
+          setContent(_contents);
+          setMaxid(newId);
+          setId(newId);
+          setMode("read");
         }}
       />
     );
