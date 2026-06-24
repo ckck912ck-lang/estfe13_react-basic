@@ -68,22 +68,23 @@ function App() {
     );
   } else if (mode === "update") {
     const selected = content.find(c => c.id === id);
-    console.log(selected);
-    if (selected) {
-      _title = selected.title;
-      _desc = selected.desc;
-    }
+    if (!selected) return null;
+
     _article = (
       <UpdateArticle
-        title={_title}
-        desc={_desc}
+        title={selected.title}
+        desc={selected.desc}
         onSubmit={(_title, _desc) => {
-          const newId = maxId + 1;
-
-          let _contents = content.concat({ id: newId, title: _title, desc: _desc });
-          setContent(_contents);
-          setMaxid(newId);
-          setId(newId);
+          let _content = content.map(c =>
+            c.id === id
+              ? {
+                  ...c,
+                  title: _title,
+                  desc: _desc,
+                }
+              : c,
+          );
+          setContent(_content); //수정된 배열
           setMode("read");
         }}
       />

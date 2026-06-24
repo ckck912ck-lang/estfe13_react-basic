@@ -17,7 +17,7 @@ function UpdateArticle({ title, desc, onSubmit }) {
         action=""
         onSubmit={e => {
           e.preventDefault();
-          onSubmit(e.target.title.value, e.target.desc.value);
+          onSubmit(newTitle, newDesc);
         }}
       >
         <div>
