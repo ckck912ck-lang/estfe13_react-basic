@@ -1,18 +1,18 @@
 //Nav 컴포넌트
 import { memo } from "react";
-/* memo : 이전 props와 현재 props를 비교해서  변경이 없으면 렌더링을 건너뛴다. */
 
-const Nav = memo(function Nav({ data, onChangeMode }) {
+const Nav = memo(function Nav({ id, data, onChangeMode }) {
   console.log("Nav render");
   const lists = data.map(d => (
-    <li key={d.id}>
+    <li key={d.id} className="nav-item">
       <a
         href={`/${d.id}`}
-        data-id={d.id}
+        className={`nav-link ${d.id === id ? "active" : ""}`}
+        // data-id={d.id}
         onClick={e => {
           // console.log(e.target.dataset.id);
           e.preventDefault();
-          onChangeMode(e.target.dataset.id);
+          onChangeMode(d.id);
         }}
       >
         {d.title}
@@ -23,9 +23,8 @@ const Nav = memo(function Nav({ data, onChangeMode }) {
 
   return (
     <nav>
-      <ul>{lists}</ul>
+      <ul className="nav flex-column nav-pills">{lists}</ul>
     </nav>
   );
 });
-
 export default Nav;
